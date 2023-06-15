@@ -1,4 +1,6 @@
 package com.example.kotlinjavaproject.Dtos.Response.Author
 
-class AuthorResponseDto {
+sealed class AuthorResponseDto {
+    val id:Int?=null;
+    val name:String?=null;
 }

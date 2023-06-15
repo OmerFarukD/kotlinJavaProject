@@ -1,4 +1,6 @@
 package com.example.kotlinjavaproject.Dtos.Response.Category
 
-class CategoryResponseDto {
+sealed class CategoryResponseDto {
+    val id:Int?=null;
+    val categoryName:String?=null;
 }

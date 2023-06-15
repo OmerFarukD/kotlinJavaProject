@@ -1,4 +1,5 @@
 package com.example.kotlinjavaproject.Dtos.Request.Author
 
-class AuthorAddDto {
+sealed class AuthorAddDto {
+    val name:String?=null;
 }

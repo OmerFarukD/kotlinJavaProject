@@ -1,4 +1,5 @@
 package com.example.kotlinjavaproject.Dtos.Request.Category
 
-class CategoryAddDto {
+sealed class CategoryAddDto {
+    val categoryName:String?=null;
 }

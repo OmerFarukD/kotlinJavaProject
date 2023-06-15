@@ -1,4 +1,6 @@
 package com.example.kotlinjavaproject.Dtos.Request.Author
 
-class AuthorUpdateDto {
+sealed class AuthorUpdateDto {
+    val id:Int?=null;
+    val name:String?=null;
 }

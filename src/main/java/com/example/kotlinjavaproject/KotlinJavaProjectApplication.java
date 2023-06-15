@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KotlinJavaProjectApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KotlinJavaProjectApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KotlinJavaProjectApplication.class, args);
+    }
 
 }
