@@ -74,4 +74,6 @@ public class BookManager implements BookService {
         Page<BookResponseDto> dto= BookMapper.INSTANCE.mapToPage(books);
         return new SuccessDataResult<>(dto);
     }
+
+
 }

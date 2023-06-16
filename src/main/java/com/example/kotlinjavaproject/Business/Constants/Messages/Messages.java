@@ -22,8 +22,7 @@ public class Messages {
     public static final String AUTHOR_DELETED_MESSAGE="Yazar Silindi.";
 
     public static final String CATEGORY_ADDED_MESSAGE="Kategori Eklendi.";
-    public static final String CATEGORY_UPDATED_MESSAGE="Kategori Eklendi.";
-    public static final String CATEGORY_DELETED_MESSAGE="Kategori Eklendi.";
-
+    public static final String CATEGORY_UPDATED_MESSAGE="Kategori Güncellendi.";
+    public static final String CATEGORY_DELETED_MESSAGE="Kategori Silindi.";
 
 }

@@ -14,11 +14,13 @@ import com.example.kotlinjavaproject.Dtos.Response.Category.CategoryResponseDto;
 import com.example.kotlinjavaproject.Entities.Category;
 import com.example.kotlinjavaproject.Repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Service
 public class CategoryManager implements CategoryService {
     private final CategoryRepository categoryRepository;
     @Override

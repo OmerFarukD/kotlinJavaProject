@@ -14,11 +14,13 @@ import com.example.kotlinjavaproject.Dtos.Response.Author.AuthorResponseDto;
 import com.example.kotlinjavaproject.Entities.Author;
 import com.example.kotlinjavaproject.Repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
+@Service
 public class AuthorManager implements AuthorService {
 
     private final AuthorRepository authorRepository;
