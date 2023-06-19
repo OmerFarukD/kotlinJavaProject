@@ -13,20 +13,24 @@ import com.example.kotlinjavaproject.Dtos.Request.Category.CategoryUpdateDto;
 import com.example.kotlinjavaproject.Dtos.Response.Category.CategoryResponseDto;
 import com.example.kotlinjavaproject.Entities.Category;
 import com.example.kotlinjavaproject.Repository.CategoryRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
-
-@RequiredArgsConstructor
 @Service
 public class CategoryManager implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
+
+    public CategoryManager(CategoryRepository categoryRepository,@Qualifier("first_preference") CategoryMapper categoryMapper) {
+        this.categoryRepository = categoryRepository;
+        this.categoryMapper = categoryMapper;
+    }
+
     @Override
     public DataResult<List<CategoryResponseDto>> getAllCategories() {
         var data=this.categoryRepository.findAll();
-        List<CategoryResponseDto> dto= CategoryMapper.INSTANCE.entityListToResponseList(data);
+        List<CategoryResponseDto> dto= this.categoryMapper.entityListToResponseList(data);
         return new SuccessDataResult<>(dto);
     }
 
@@ -34,13 +38,13 @@ public class CategoryManager implements CategoryService {
     public DataResult<CategoryResponseDto> getCategoryById(int id) throws BusinessException {
 
         var data=this.categoryRepository.findById(id).orElseThrow(()-> new BusinessException(Messages.categoryNotFound(id)));
-        CategoryResponseDto categoryResponseDto=CategoryMapper.INSTANCE.entityToResponse(data);
+        CategoryResponseDto categoryResponseDto=this.categoryMapper.entityToResponse(data);
         return new SuccessDataResult<>(categoryResponseDto);
     }
 
     @Override
     public Result add(CategoryAddDto categoryAddDto) {
-        Category category=CategoryMapper.INSTANCE.addDtoToEntity(categoryAddDto);
+        Category category=this.categoryMapper.addDtoToEntity(categoryAddDto);
         this.categoryRepository.save(category);
         return new SuccessResult(Messages.CATEGORY_ADDED_MESSAGE);
     }

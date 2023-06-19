@@ -7,28 +7,29 @@ import com.example.kotlinjavaproject.Dtos.Request.Book.BookAddDto;
 import com.example.kotlinjavaproject.Dtos.Request.Book.BookUpdateDto;
 import com.example.kotlinjavaproject.Dtos.Response.Book.BookResponseDto;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/books")
 public class BookController {
-
     private final BookService bookService;
-
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
     @PostMapping("/add")
     public ResponseEntity<Result> add(@Valid @RequestBody BookAddDto bookAddDto){
         var data=this.bookService.add(bookAddDto);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<Result> delete(@RequestParam Integer id)throws BusinessException{
+        var data= this.bookService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(data);
+    }
     @PostMapping("/update")
     public ResponseEntity<Result> update(@Valid @RequestBody BookUpdateDto bookUpdateDto) throws BusinessException {
         var data= this.bookService.update(bookUpdateDto);
@@ -36,8 +37,8 @@ public class BookController {
     }
 
     @GetMapping("/getall")
-    public ResponseEntity<DataResult<Page<BookResponseDto>>> getAllByPage(@RequestParam Pageable pageable){
-        var data= this.bookService.getAllBooksByPage(pageable);
+    public ResponseEntity<DataResult<List<BookResponseDto>>> getAll(){
+        var data= this.bookService.getAllBooks();
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
     @GetMapping("/getbyid")
@@ -46,14 +47,15 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
     @GetMapping("/getbycategoryid")
-    public ResponseEntity<DataResult<Page<BookResponseDto>>> getCategoryId(@RequestParam Pageable pageable,@RequestParam int categoryId){
-        var data= this.bookService.getAllByCategoryId(pageable,categoryId);
+    public ResponseEntity<DataResult<List<BookResponseDto>>> getCategoryId(@RequestParam int categoryId){
+        var data= this.bookService.getAllBooksByCategoryId(categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
     @GetMapping("/getbyauthorid")
-    public ResponseEntity<DataResult<Page<BookResponseDto>>> getAuthorId(@RequestParam Pageable pageable,@RequestParam int authorId){
-        var data= this.bookService.getAllByAuthorId(pageable,authorId);
+    public ResponseEntity<DataResult<List<BookResponseDto>>> getAuthorId(@RequestParam int authorId){
+        var data= this.bookService.getAllBooksByAuthorId(authorId);
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
+
 }

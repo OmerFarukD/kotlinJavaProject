@@ -8,9 +8,9 @@ import jakarta.persistence.*
     @Id
     @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Int?=null;
+    var id:Int?=null;
     @Column(name = "categoryName")
-    val categoryName:String?=null;
+    var categoryName:String?=null;
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val books:List<Book>?=null;
+    var books:List<Book>?=null;
 }

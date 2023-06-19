@@ -9,24 +9,24 @@ import jakarta.persistence.*
     @Id
     @Column(name = "book_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id:Int=0;
+    var id:Int=0;
 
     @Column(name = "title")
-    val title:String?=null;
+    var title:String?=null;
     @Column(name = "price")
-    val price:Double=0.0;
+    var price:Double=0.0;
 
     @ManyToOne()
     @JoinColumn(name = "author_id")
-    val author: Author? =null;
+    var author: Author? =null;
 
     @Column(name = "description")
-    val description:String?=null;
+    var description:String?=null;
 
     @Column(name = "stock")
-    val stock:Int?=null;
+    var stock:Int?=null;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    val category:Category?=null;
+    var category:Category?=null;
 }

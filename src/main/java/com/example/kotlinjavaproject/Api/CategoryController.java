@@ -7,7 +7,6 @@ import com.example.kotlinjavaproject.Core.Results.Result;
 import com.example.kotlinjavaproject.Dtos.Request.Category.CategoryAddDto;
 import com.example.kotlinjavaproject.Dtos.Response.Category.CategoryResponseDto;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categories")
-@RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/getall")
     public ResponseEntity<DataResult<List<CategoryResponseDto>>> getAll(){

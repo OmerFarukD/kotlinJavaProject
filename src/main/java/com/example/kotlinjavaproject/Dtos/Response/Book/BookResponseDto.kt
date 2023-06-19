@@ -1,13 +1,10 @@
 package com.example.kotlinjavaproject.Dtos.Response.Book
-
-import com.example.kotlinjavaproject.Dtos.Response.Author.AuthorResponseDto
-
-sealed class BookResponseDto {
-    val id:Int?=null;
-    val title:String?=null;
-    val price:Double?=null;
-    val description:String?=null;
-    val stock:Int?=null;
+ class BookResponseDto {
+    var id:Int?=null;
+    var title:String?=null;
+    var price:Double?=null;
+    var description:String?=null;
+    var stock:Int?=null;
 
 
 

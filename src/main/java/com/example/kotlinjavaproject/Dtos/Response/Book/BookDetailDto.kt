@@ -3,7 +3,7 @@ package com.example.kotlinjavaproject.Dtos.Response.Book
 import com.example.kotlinjavaproject.Dtos.Response.Author.AuthorResponseDto
 import com.example.kotlinjavaproject.Dtos.Response.Category.CategoryResponseDto
 
-sealed class BookDetailDto {
+ class BookDetailDto {
      val id:Int?=null;
      val title:String?=null;
      val price:Double?=null;

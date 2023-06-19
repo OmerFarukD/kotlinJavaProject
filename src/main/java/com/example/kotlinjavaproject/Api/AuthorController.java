@@ -8,7 +8,6 @@ import com.example.kotlinjavaproject.Dtos.Request.Author.AuthorAddDto;
 import com.example.kotlinjavaproject.Dtos.Request.Author.AuthorUpdateDto;
 import com.example.kotlinjavaproject.Dtos.Response.Author.AuthorResponseDto;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +16,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/authors")
-@RequiredArgsConstructor
 public class AuthorController {
 
 private final AuthorService authorService;
 
-@GetMapping("/getall")
+    public AuthorController(AuthorService authorService) {
+        this.authorService = authorService;
+    }
+
+    @GetMapping("/getall")
 public ResponseEntity<DataResult<List<AuthorResponseDto>>> getAll(){
     var data= this.authorService.getAll();
     return ResponseEntity.status(HttpStatus.OK).body(data);

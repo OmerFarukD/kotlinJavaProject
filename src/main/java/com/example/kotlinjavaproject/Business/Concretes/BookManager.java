@@ -13,34 +13,32 @@ import com.example.kotlinjavaproject.Dtos.Request.Book.BookUpdateDto;
 import com.example.kotlinjavaproject.Dtos.Response.Book.BookResponseDto;
 import com.example.kotlinjavaproject.Entities.Book;
 import com.example.kotlinjavaproject.Repository.BookRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
 public class BookManager implements BookService {
 
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    @Override
-    public DataResult<Page<BookResponseDto>> getAllBooksByPage(Pageable pageable) {
-        return null;
+    public BookManager(BookRepository bookRepository, BookMapper bookMapper) {
+        this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Override
     public DataResult<BookResponseDto> getById(int id) throws BusinessException {
         var data= this.bookRepository.findById(id).orElseThrow(()->new BusinessException(Messages.bookNotFoundMessage(id)));
-        BookResponseDto dto= BookMapper.INSTANCE.entityToResponse(data);
+        BookResponseDto dto= this.bookMapper.entityToResponse(data);
         return new SuccessDataResult<>(dto);
     }
 
     @Override
     public Result add(BookAddDto bookAddDto) {
-        Book book=BookMapper.INSTANCE.addDtoToEntity(bookAddDto);
+        Book book=this.bookMapper.addDtoToEntity(bookAddDto);
         this.bookRepository.save(book);
         return new SuccessResult(Messages.BOOK_ADDED_MESSAGE);
     }
@@ -55,10 +53,25 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public DataResult<Page<BookResponseDto>> getAllByCategoryId(Pageable pageable,int categoryId) {
-        var books=this.bookRepository.findAllByCategory_Id(pageable,categoryId);
-        Page<BookResponseDto> dto= BookMapper.INSTANCE.mapToPage(books);
-        return new SuccessDataResult<>(dto);
+    public DataResult<List<BookResponseDto>> getAllBooks() {
+        var books= this.bookRepository.findAll();
+        List<BookResponseDto> dtoList= this.bookMapper.mapToResponseList(books);
+        return new SuccessDataResult<>(dtoList);
+    }
+
+    @Override
+    public DataResult<List<BookResponseDto>> getAllBooksByAuthorId(int authorId) {
+        var books= this.bookRepository.findAllByAuthor_Id(authorId);
+        List<BookResponseDto> dtoList= this.bookMapper.mapToResponseList(books);
+        return new SuccessDataResult<>(dtoList);
+    }
+
+    @Override
+    public DataResult<List<BookResponseDto>> getAllBooksByCategoryId(int categoryId) {
+        var books= this.bookRepository.findAllByCategory_Id(categoryId);
+        List<BookResponseDto> dtoList= this.bookMapper.mapToResponseList(books);
+        return new SuccessDataResult<>(dtoList);
+
     }
 
     @Override
@@ -66,13 +79,6 @@ public class BookManager implements BookService {
         var data= this.bookRepository.findById(id).orElseThrow(()->new BusinessException(Messages.bookNotFoundMessage(id)));
        this.bookRepository.delete(data);
         return new SuccessResult(Messages.BOOK_DELETED_MESSAGE);
-    }
-
-    @Override
-    public DataResult<Page<BookResponseDto>> getAllByAuthorId(Pageable pageable, int authorId) {
-        var books=this.bookRepository.findAllByAuthor_Id(pageable,authorId);
-        Page<BookResponseDto> dto= BookMapper.INSTANCE.mapToPage(books);
-        return new SuccessDataResult<>(dto);
     }
 
 

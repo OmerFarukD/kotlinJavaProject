@@ -6,7 +6,6 @@ import com.example.kotlinjavaproject.Core.Results.Result;
 import com.example.kotlinjavaproject.Dtos.Request.Author.AuthorAddDto;
 import com.example.kotlinjavaproject.Dtos.Request.Author.AuthorUpdateDto;
 import com.example.kotlinjavaproject.Dtos.Response.Author.AuthorResponseDto;
-
 import java.util.List;
 
 public interface AuthorService {

@@ -8,11 +8,11 @@ import jakarta.persistence.*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
-    val id:Int?=null;
+    var id:Int=0;
 
     @Column(name="name")
-    val name:String?=null;
+    var name:String="";
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    val books:List<Book>?=null;
+    var books:List<Book> = arrayListOf<Book>()
 }

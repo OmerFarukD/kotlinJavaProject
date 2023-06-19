@@ -1,6 +1,6 @@
 package com.example.kotlinjavaproject.Dtos.Request.Book
 
-sealed class BookUpdateDto {
+ class BookUpdateDto {
     val id:Int?=null;
     val title:String?=null;
     val price:Double?=null;
