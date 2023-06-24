@@ -1,10 +1,12 @@
 package com.example.kotlinjavaproject.Business.Constants.Messages;
 
 public class Messages {
+
+
     private Messages() {
 
     }
-
+    public static final String authorNameMustBeUnique="Yazar Adı benzersiz olmalı";
     public static  String bookNotFoundMessage(int id){
         return "Kitap Id : "+id+" bulunamadı.";
     }
