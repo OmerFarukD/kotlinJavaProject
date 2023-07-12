@@ -36,6 +36,9 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
+    // BS-107
+    // Api ye git bir tane Title göre kitap getiren api yi yaz.
+
     @GetMapping("/getall")
     public ResponseEntity<DataResult<List<BookResponseDto>>> getAll(){
         var data= this.bookService.getAllBooks();

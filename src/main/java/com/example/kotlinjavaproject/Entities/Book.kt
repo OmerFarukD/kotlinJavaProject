@@ -29,4 +29,5 @@ import jakarta.persistence.*
     @ManyToOne
     @JoinColumn(name = "category_id")
     var category:Category?=null;
+
 }

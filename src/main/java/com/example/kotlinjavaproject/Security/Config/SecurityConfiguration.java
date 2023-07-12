@@ -1,8 +1,11 @@
 package com.example.kotlinjavaproject.Security.Config;
 
+import com.example.kotlinjavaproject.Business.Constants.ApiRequest.ApiUrl;
+import com.example.kotlinjavaproject.Security.Models.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,7 +20,7 @@ public class SecurityConfiguration {
 
 
 private final JwtAuthenticationFilter jwtAuthFilter;
- private final AuthenticationProvider authenticationProvider;
+private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -25,8 +28,19 @@ private final JwtAuthenticationFilter jwtAuthFilter;
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**")
-                .permitAll()
+                .requestMatchers(ApiUrl.AUTHENTICATION_API).permitAll()
+                .requestMatchers(HttpMethod.GET, ApiUrl.BOOKS_API).permitAll()
+                .requestMatchers(HttpMethod.GET,ApiUrl.AUTHORS_API).permitAll()
+                .requestMatchers(HttpMethod.GET,ApiUrl.CATEGORIES_API).permitAll()
+                .requestMatchers(HttpMethod.POST,ApiUrl.BOOKS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.POST,ApiUrl.AUTHORS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.POST,ApiUrl.CATEGORIES_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PUT,ApiUrl.BOOKS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PUT,ApiUrl.AUTHORS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.PUT,ApiUrl.CATEGORIES_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE,ApiUrl.BOOKS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE,ApiUrl.AUTHORS_API).hasRole(Role.ADMIN.name())
+                .requestMatchers(HttpMethod.DELETE,ApiUrl.CATEGORIES_API).hasRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()

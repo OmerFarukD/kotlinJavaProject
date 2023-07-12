@@ -1,5 +1,7 @@
 package com.example.kotlinjavaproject.Business.Concretes;
 
+import com.example.kotlinjavaproject.AOP.Aspects.Logging.LogResult;
+import com.example.kotlinjavaproject.AOP.CCS.Logging.LogType;
 import com.example.kotlinjavaproject.Business.Abstracts.BookService;
 import com.example.kotlinjavaproject.Business.Constants.Messages.Messages;
 import com.example.kotlinjavaproject.Business.Profiles.BookMapper;
@@ -37,6 +39,7 @@ public class BookManager implements BookService {
     }
 
     @Override
+    @LogResult(type = LogType.DATABASE)
     public Result add(BookAddDto bookAddDto) {
         Book book=this.bookMapper.addDtoToEntity(bookAddDto);
         this.bookRepository.save(book);
